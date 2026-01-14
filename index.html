@@ -8,49 +8,93 @@
 <style>
 body {
     margin:0;
-    background:#000;
+    background:#0b0b0b;
     color:white;
     font-family: Arial;
 }
 
+/* Player */
 #player {
     width:100%;
     height:45vh;
     background:black;
 }
 
+/* Channels grid */
 .channels {
     display:grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px,1fr));
-    gap:10px;
-    padding:10px;
+    grid-template-columns: repeat(auto-fill, minmax(140px,1fr));
+    gap:15px;
+    padding:15px;
 }
 
 .channel {
-    background:#111;
-    border:1px solid #333;
-    padding:15px;
+    background:#141414;
+    border-radius:15px;
+    padding:10px;
     text-align:center;
-    border-radius:10px;
     cursor:pointer;
     transition:0.3s;
+    border:1px solid #222;
 }
 
 .channel:hover {
+    transform: scale(1.05);
     background:#e10600;
+}
+
+.channel img {
+    width:100%;
+    height:80px;
+    object-fit: contain;
+    margin-bottom:8px;
+}
+
+.channel span {
+    display:block;
+    font-size:14px;
+}
+
+/* Header */
+.header {
+    background:#111;
+    padding:10px;
+    text-align:center;
+    font-size:20px;
+    font-weight:bold;
+    border-bottom:1px solid #222;
 }
 </style>
 </head>
 
 <body>
 
+<div class="header">📺 Live TV</div>
+
 <video id="player" controls autoplay></video>
 
 <div class="channels">
-    <div class="channel" onclick="play('http://20012.xyz:2086/live/JIm1hhFc38/gBFeyxJpi5/288836.ts')">TOD CAF 1 FHD</div>
-    <div class="channel" onclick="play('http://20012.xyz:2086/live/JIm1hhFc38/gBFeyxJpi5/288837.ts')">TOD CAF 2 FHD</div>
-    <div class="channel" onclick="play('http://20012.xyz:2086/live/JIm1hhFc38/gBFeyxJpi5/288841.ts')">beIN Sports Max 1</div>
-    <div class="channel" onclick="play('http://20012.xyz:2086/live/JIm1hhFc38/gBFeyxJpi5/288842.ts')">beIN Sports Max 2</div>
+
+    <div class="channel" onclick="play('http://20012.xyz:2086/live/JIm1hhFc38/gBFeyxJpi5/288836.ts')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/TOD_TV_logo.png">
+        <span>TOD CAF 1 FHD</span>
+    </div>
+
+    <div class="channel" onclick="play('http://20012.xyz:2086/live/JIm1hhFc38/gBFeyxJpi5/288837.ts')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/TOD_TV_logo.png">
+        <span>TOD CAF 2 FHD</span>
+    </div>
+
+    <div class="channel" onclick="play('http://20012.xyz:2086/live/JIm1hhFc38/gBFeyxJpi5/288841.ts')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2c/BeIN_Sports_logo.svg">
+        <span>beIN Sports Max 1</span>
+    </div>
+
+    <div class="channel" onclick="play('http://20012.xyz:2086/live/JIm1hhFc38/gBFeyxJpi5/288842.ts')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2c/BeIN_Sports_logo.svg">
+        <span>beIN Sports Max 2</span>
+    </div>
+
 </div>
 
 <script>
