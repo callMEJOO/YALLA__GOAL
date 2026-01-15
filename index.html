@@ -13,50 +13,110 @@ body {
     font-family: Arial;
 }
 
-.header {
+.topbar {
     display:flex;
     align-items:center;
-    padding:10px;
+    justify-content:space-between;
+    padding:10px 20px;
     background:#111;
+    border-bottom:1px solid #222;
 }
 
-.header img {
-    height:40px;
+.channel {
+    display:flex;
+    align-items:center;
+}
+
+.channel img {
+    height:38px;
     margin-right:15px;
 }
 
-.header span {
+.channel span {
     font-size:20px;
     font-weight:bold;
 }
 
-#player {
+.controls {
+    display:flex;
+    gap:10px;
+}
+
+.controls button {
+    background:#e10600;
+    border:none;
+    padding:8px 14px;
+    color:white;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+video {
     width:100%;
-    height:90vh;
+    height:calc(100vh - 60px);
     background:black;
+}
+
+.lock {
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:black;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    font-size:30px;
+    z-index:10;
 }
 </style>
 </head>
 
 <body>
 
-<div class="header">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/1/12/BeIN_Sports_logo_2017.svg">
-    <span>beIN Sports Max 2 FHD</span>
+<div class="topbar">
+    <div class="channel">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/1/12/BeIN_Sports_logo_2017.svg">
+        <span>beIN Sports Max 2 FHD</span>
+    </div>
+    <div class="controls">
+        <button onclick="toggleLock()">🔒 Lock</button>
+        <button onclick="setQuality(0)">Auto</button>
+        <button onclick="setQuality(1)">HD</button>
+        <button onclick="setQuality(2)">SD</button>
+    </div>
 </div>
 
 <video id="player" controls autoplay></video>
 
+<div class="lock" id="lock">
+    🔒 Screen Locked
+</div>
+
 <script>
 const url = "https://customer-t4nsypqlcwi66jhi.cloudflarestream.com/df0a16327e6e311830b9bea451fdc92c/manifest/video.m3u8";
 const video = document.getElementById("player");
+let hls;
 
 if (Hls.isSupported()) {
-  const hls = new Hls({ liveSyncDurationCount: 3, lowLatencyMode: true });
-  hls.loadSource(url);
-  hls.attachMedia(video);
-} else {
-  video.src = url;
+    hls = new Hls({liveSyncDurationCount:3, lowLatencyMode:true});
+    hls.loadSource(url);
+    hls.attachMedia(video);
+}
+
+function toggleLock(){
+    const lock = document.getElementById("lock");
+    lock.style.display = lock.style.display === "flex" ? "none" : "flex";
+}
+
+function setQuality(level){
+    if(!hls) return;
+    if(level === 0){
+        hls.currentLevel = -1; // Auto
+    } else {
+        hls.currentLevel = level - 1;
+    }
 }
 </script>
 
