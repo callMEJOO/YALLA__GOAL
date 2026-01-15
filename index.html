@@ -2,93 +2,61 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
-<title>Live TV</title>
+<title>beIN Sports Max 2 FHD</title>
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
 <style>
 body {
     margin:0;
-    background:#0b0b0b;
+    background:#000;
     color:white;
     font-family: Arial;
 }
 
+.header {
+    display:flex;
+    align-items:center;
+    padding:10px;
+    background:#111;
+}
+
+.header img {
+    height:40px;
+    margin-right:15px;
+}
+
+.header span {
+    font-size:20px;
+    font-weight:bold;
+}
+
 #player {
     width:100%;
-    height:45vh;
+    height:90vh;
     background:black;
 }
-
-.header {
-    background:#111;
-    padding:12px;
-    text-align:center;
-    font-size:20px;
-    border-bottom:1px solid #222;
-}
-
-.channels {
-    display:grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px,1fr));
-    gap:15px;
-    padding:15px;
-}
-
-.channel {
-    background:#151515;
-    border-radius:15px;
-    padding:10px;
-    text-align:center;
-    cursor:pointer;
-    transition:.3s;
-}
-
-.channel:hover {
-    background:#e10600;
-}
-
-.channel img {
-    width:100%;
-    height:80px;
-    object-fit:contain;
-}
-
 </style>
 </head>
 
 <body>
 
-<div class="header">📺 Live TV</div>
+<div class="header">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/1/12/BeIN_Sports_logo_2017.svg">
+    <span>beIN Sports Max 2 FHD</span>
+</div>
 
 <video id="player" controls autoplay></video>
 
-<div class="channels">
-
-<div class="channel" onclick="play('http://23.137.105.61/st/stream1.m3u8')">
-<img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/TOD_TV_logo.png">
-TOD CAF 1
-</div>
-
-<div class="channel" onclick="play('http://23.137.105.61/st/stream2.m3u8')">
-<img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/TOD_TV_logo.png">
-TOD CAF 2
-</div>
-
-</div>
-
 <script>
-function play(url){
-    let video = document.getElementById("player");
+const url = "https://customer-t4nsypqlcwi66jhi.cloudflarestream.com/df0a16327e6e311830b9bea451fdc92c/manifest/video.m3u8";
+const video = document.getElementById("player");
 
-    if(Hls.isSupported()){
-        if(window.hls) window.hls.destroy();
-        window.hls = new Hls();
-        window.hls.loadSource(url);
-        window.hls.attachMedia(video);
-    } else {
-        video.src = url;
-    }
-    video.play();
+if (Hls.isSupported()) {
+  const hls = new Hls({ liveSyncDurationCount: 3, lowLatencyMode: true });
+  hls.loadSource(url);
+  hls.attachMedia(video);
+} else {
+  video.src = url;
 }
 </script>
 
